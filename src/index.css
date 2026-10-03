@@ -1,0 +1,246 @@
+@import "tailwindcss";
+
+@custom-variant dark (&:where(.dark, .dark *));
+
+@theme {
+  --color-bg-page: var(--bg-page);
+  --color-bg-page-alt: var(--bg-page-alt);
+  --color-bg-card: var(--bg-card);
+  --color-bg-card-hover: var(--bg-card-hover);
+  --color-bg-input: var(--bg-input);
+  --color-bg-dark: var(--bg-dark);
+  --color-bg-dark-2: var(--bg-dark-2);
+  --color-bg-dark-3: var(--bg-dark-3);
+  --color-brown: var(--brown);
+  --color-brown-2: var(--brown-2);
+  --color-text-primary: var(--text-primary);
+  --color-text-secondary: var(--text-secondary);
+  --color-text-muted: var(--text-muted);
+  --color-text-on-dark: var(--text-on-dark);
+  --color-text-on-dark-soft: var(--text-on-dark-soft);
+  --color-text-on-dark-muted: var(--text-on-dark-muted);
+  --color-accent: var(--accent);
+  --color-accent-hover: var(--accent-hover);
+  --font-heading: 'Roboto', sans-serif;
+  --font-sans: 'Roboto', sans-serif;
+  --font-mono: 'Fira Code', monospace;
+}
+
+:root {
+  /* LIGHT THEME (Warm sand / parchment / espresso) */
+  --bg-page: #E6DBC6;
+  --bg-page-alt: #DDD0B8;
+  --bg-card: #D9CCB4;
+  --bg-card-hover: #E0D4BD;
+  --bg-card-gradient: linear-gradient(160deg, #E3D8C2 0%, #D4C6AB 100%);
+  --bg-card-dark: linear-gradient(145deg, #4A3B2E 0%, #3A2E24 100%);
+  --bg-card-dark-inner: #2B2621;
+  --bg-input: #F6F0E2;
+  --bg-dark: #1F1B17;
+  --bg-dark-2: #2B2621;
+  --bg-dark-3: #3A332B;
+  --brown: #4A3B2E;
+  --brown-2: #3A2E24;
+  --text-primary: #1F1B17;
+  --text-secondary: #3D362D;
+  --text-muted: #5E5547;
+  --text-on-dark: #F6EFE2;
+  --text-on-dark-soft: #D6CBB7;
+  --text-on-dark-muted: #A89F8D;
+  --accent: #8C5E34;
+  --accent-hover: #724A28;
+  --accent-soft: rgba(140, 94, 52, 0.14);
+  --border-light: rgba(31, 27, 23, 0.14);
+  --border-strong: #BFB195;
+  --border-dark: rgba(243, 234, 217, 0.12);
+  --shadow-card: 0 10px 28px rgba(60, 45, 25, 0.18), 0 2px 6px rgba(60, 45, 25, 0.10);
+  --shadow-hover: 0 14px 36px rgba(60, 45, 25, 0.26), 0 3px 8px rgba(60, 45, 25, 0.12);
+  --shadow-dark: 0 14px 36px rgba(20, 15, 10, 0.40);
+  --focus-ring: 0 0 0 3px rgba(140, 94, 52, 0.28);
+  --scrollbar-thumb: #BFB195;
+  --scrollbar-track: #DDD0B8;
+}
+
+.dark, [data-theme="dark"] {
+  /* HIGH-END MONGODB-INSPIRED DEVELOPER DARK THEME */
+  --bg-page: #001E2B;
+  --bg-page-alt: #001721;
+  --bg-card: #0C2331;
+  --bg-card-hover: #112D3E;
+  --bg-card-gradient: linear-gradient(160deg, #0C2331 0%, #061923 100%);
+  --bg-card-dark: linear-gradient(145deg, #061923 0%, #020F16 100%);
+  --bg-card-dark-inner: #071924;
+  --bg-input: #041219;
+  --bg-dark: #00ED64;
+  --bg-dark-2: #00C853;
+  --bg-dark-3: #009639;
+  --brown: #0D2636;
+  --brown-2: #061923;
+  --text-primary: #F9FBFA;
+  --text-secondary: #C1C7C6;
+  --text-muted: #889397;
+  --text-on-dark: #001E2B;
+  --text-on-dark-soft: #D9DFDE;
+  --text-on-dark-muted: #95A1A4;
+  --accent: #00ED64;
+  --accent-hover: #00C853;
+  --accent-soft: rgba(0, 237, 100, 0.15);
+  --border-light: rgba(255, 255, 255, 0.08);
+  --border-strong: rgba(0, 237, 100, 0.25);
+  --border-dark: rgba(255, 255, 255, 0.10);
+  --shadow-card: 0 10px 30px -5px rgba(0, 0, 0, 0.65), 0 2px 8px rgba(0, 0, 0, 0.40);
+  --shadow-hover: 0 18px 40px -5px rgba(0, 0, 0, 0.80), 0 4px 14px rgba(0, 237, 100, 0.15);
+  --shadow-dark: 0 18px 44px rgba(0, 0, 0, 0.75);
+  --focus-ring: 0 0 0 3px rgba(0, 237, 100, 0.35);
+  --scrollbar-thumb: #1A384A;
+  --scrollbar-track: #001721;
+}
+
+@layer base {
+  *, ::before, ::after {
+    box-sizing: border-box;
+  }
+}
+
+::selection {
+  background-color: var(--accent);
+  color: var(--text-on-dark);
+}
+
+html, body {
+  background-color: var(--bg-page);
+  color: var(--text-secondary);
+  overflow-x: hidden;
+  width: 100%;
+  min-height: 100%;
+  font-family: 'Roboto', system-ui, -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+  scrollbar-color: var(--scrollbar-thumb) var(--scrollbar-track);
+}
+
+::-webkit-scrollbar {
+  width: 10px;
+}
+::-webkit-scrollbar-track {
+  background: var(--scrollbar-track);
+}
+::-webkit-scrollbar-thumb {
+  background: var(--scrollbar-thumb);
+  border-radius: 5px;
+}
+
+#root {
+  width: 100%;
+  min-height: 100vh;
+  margin: 0;
+  padding: 0;
+  border: none;
+  display: block;
+  text-align: left;
+  background-color: var(--bg-page);
+  color: var(--text-secondary);
+}
+
+/* Global Section Container: max-width 1200px, side padding 20px mobile / 32px tablet / 48px desktop */
+.section-container {
+  max-width: 1200px;
+  margin-left: auto;
+  margin-right: auto;
+  width: 100%;
+  padding-left: 20px;
+  padding-right: 20px;
+}
+@media (min-width: 640px) {
+  .section-container {
+    padding-left: 32px;
+    padding-right: 32px;
+  }
+}
+@media (min-width: 1024px) {
+  .section-container {
+    padding-left: 48px;
+    padding-right: 48px;
+  }
+}
+
+/* Cards Design System according to reference specifications */
+.card-light {
+  background-color: var(--bg-card);
+  border-radius: 6px;
+  border: 1px solid var(--border-light);
+  box-shadow: var(--shadow-card);
+  transition: transform 0.25s ease, box-shadow 0.25s ease;
+}
+.card-light:hover {
+  transform: translateY(-4px);
+  box-shadow: var(--shadow-hover);
+}
+
+.card-dark {
+  background: var(--bg-card-dark);
+  border-radius: 6px;
+  border: 1px solid var(--border-dark);
+  box-shadow: var(--shadow-dark);
+  transition: transform 0.25s ease, box-shadow 0.25s ease;
+}
+.card-dark:hover {
+  transform: translateY(-4px);
+  box-shadow: 0 18px 44px rgba(0, 0, 0, 0.45);
+}
+
+.card-dark-inner {
+  background-color: var(--bg-card-dark-inner);
+  border-radius: 16px;
+  padding: 32px;
+}
+
+
+/* Section spacing: single source of truth */
+#about,
+#skills,
+#projects,
+#experience,
+#contact {
+  padding-top: 3rem !important;
+  padding-bottom: 3rem !important;
+  margin-top: 0 !important;
+  margin-bottom: 0 !important;
+}
+
+@media (min-width: 640px) {
+  #about,
+  #skills,
+  #projects,
+  #experience,
+  #contact {
+    padding-top: 3.5rem !important;
+    padding-bottom: 3.5rem !important;
+  }
+}
+
+@media (min-width: 1024px) {
+  #about,
+  #skills,
+  #projects,
+  #experience,
+  #contact {
+    padding-top: 4rem !important;
+    padding-bottom: 4rem !important;
+  }
+}
+/* Gap between section heading block and the section content */
+.section-heading-wrap {
+  padding-bottom: 2.5rem !important;
+  margin-bottom: 0 !important;
+}
+
+@media (min-width: 640px) {
+  .section-heading-wrap {
+    padding-bottom: 3rem !important;
+  }
+}
+
+@media (min-width: 1024px) {
+  .section-heading-wrap {
+    padding-bottom: 3.5rem !important;
+  }
+}
