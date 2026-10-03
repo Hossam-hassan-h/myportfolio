@@ -1,7 +1,7 @@
 import React, { useState } from 'react';
 import type { ProjectItem } from './projectsData';
 import { motion } from 'framer-motion';
-import { ExternalLink, RotateCw } from 'lucide-react';
+import { ExternalLink, RotateCw, Lock } from 'lucide-react';
 import { SiGithub } from 'react-icons/si';
 
 interface ProjectCardProps {
@@ -34,22 +34,25 @@ export const ProjectCard: React.FC<ProjectCardProps> = ({ project }) => {
           style={{ backfaceVisibility: 'hidden' }}
           className="absolute inset-0 w-full h-full rounded-xl bg-[#D9CCB4] dark:bg-[#0C2331] border border-[#1F1B17]/14 dark:border-[rgba(255,255,255,0.08)] p-6 sm:p-7 lg:p-8 flex flex-col overflow-hidden shadow-[0_10px_28px_rgba(60,45,25,0.18),0_2px_6px_rgba(60,45,25,0.10)] dark:shadow-[0_10px_30px_rgba(0,0,0,0.65)] transition-all duration-300 hover:shadow-[0_14px_36px_rgba(60,45,25,0.26),0_3px_8px_rgba(60,45,25,0.12)] dark:hover:shadow-[0_18px_40px_rgba(0,0,0,0.85)] dark:hover:border-[#00ED64]/40"
         >
-          {/* Image */}
-          <div className="relative w-full aspect-[4/3] rounded-[20px] overflow-hidden bg-[#DDD0B8] dark:bg-[#06151E] border border-[#1F1B17]/14 dark:border-[rgba(255,255,255,0.08)] shrink-0 flex items-center justify-center transition-colors duration-300">
-            <motion.img
-              src={project.image}
-              alt={project.title}
-              whileHover={{ scale: 1.04 }}
-              transition={{ duration: 0.3 }}
-              className="w-full h-full object-cover rounded-[20px]"
-              loading="lazy"
-            />
-            {/* Flip Info Badge */}
-            <div className="absolute top-3 right-3 z-10 flex items-center gap-1.5 px-3 py-1 rounded-full bg-[#F6F0E2]/95 dark:bg-[#041219]/95 border border-[#BFB195] dark:border-[#00ED64]/30 text-[#1F1B17] dark:text-[#00ED64] text-[10px] font-mono font-bold backdrop-blur-md shadow-sm transition-colors duration-300">
-              <RotateCw className="w-3 h-3 text-[#8C5E34] dark:text-[#00ED64]" />
-              <span>Info</span>
-            </div>
-          </div>
+{/* Image */}
+<div
+  className="relative w-[calc(100%+3rem)] -ml-6 -mt-6 sm:w-[calc(100%+3.5rem)] sm:-ml-7 sm:-mt-7 lg:w-[calc(100%+4rem)] lg:-ml-8 lg:-mt-8 aspect-[4/3] rounded-t-xl overflow-hidden bg-[#DDD0B8] dark:bg-[#06151E] border-b border-[#1F1B17]/14 dark:border-[rgba(255,255,255,0.08)] shrink-0 flex items-center justify-center transition-colors duration-300"
+>
+  <motion.img
+    src={project.image}
+    alt={project.title}
+    whileHover={{ scale: 1.04 }}
+    transition={{ duration: 0.3 }}
+    className="w-full h-full object-cover"
+    loading="lazy"
+  />
+
+  {/* Flip Info Badge */}
+  <div className="absolute top-3 right-3 z-10 flex items-center gap-1.5 px-3 py-1 rounded-full bg-[#F6F0E2]/95 dark:bg-[#041219]/95 border border-[#BFB195] dark:border-[#00ED64]/30 text-[#1F1B17] dark:text-[#00ED64] text-[10px] font-mono font-bold backdrop-blur-md shadow-sm transition-colors duration-300">
+    <RotateCw className="w-3 h-3 text-[#8C5E34] dark:text-[#00ED64]" />
+    <span>Info</span>
+  </div>
+</div>
 
           {/* Content block under the image */}
           <div className="flex-1 flex flex-col items-center text-center gap-3 pt-6 pb-5 w-full min-w-0">
@@ -133,17 +136,32 @@ export const ProjectCard: React.FC<ProjectCardProps> = ({ project }) => {
             className="pt-5 border-t border-[rgba(243,234,217,0.12)] dark:border-[rgba(255,255,255,0.08)] flex items-center justify-between gap-3"
             onClick={(e) => e.stopPropagation()}
           >
-            <a
-              href={project.liveDemoUrl}
-              target="_blank"
-              rel="noreferrer"
-              className="flex-1 inline-flex items-center justify-center gap-2 h-[48px] sm:h-[50px] px-4 rounded-xl font-bold text-sm tracking-wide text-[#F6EFE2] bg-[#2B2621] hover:bg-[#3A332B] border border-[rgba(243,234,217,0.12)] dark:bg-[#00ED64] dark:text-[#001E2B] dark:hover:bg-[#00C853] dark:border-[#00ED64] dark:shadow-[0_4px_16px_rgba(0,237,100,0.25)] transition-all duration-250 shadow-sm"
-            >
-              <span className="flex items-center gap-1.5 font-['Roboto',sans-serif]">
-                <span>Live Demo</span>
-                <ExternalLink className="w-4 h-4 text-[#D6CBB7] dark:text-[#001E2B]" />
-              </span>
-            </a>
+            {project.isPrivate || !project.liveDemoUrl ? (
+              <button
+                type="button"
+                disabled
+                aria-disabled="true"
+                className="flex-1 inline-flex items-center justify-center gap-2 h-[48px] sm:h-[50px] px-4 rounded-xl font-bold text-sm tracking-wide text-[#F6EFE2] bg-[#2B2621] border border-[rgba(243,234,217,0.12)] dark:bg-[#00ED64] dark:text-[#001E2B] dark:border-[#00ED64] transition-all duration-250 shadow-sm cursor-not-allowed opacity-90"
+                title="Private project - No public access"
+              >
+                <span className="flex items-center gap-1.5 font-['Roboto',sans-serif]">
+                  <span>Private</span>
+                  <Lock className="w-4 h-4 text-[#D6CBB7] dark:text-[#001E2B]" />
+                </span>
+              </button>
+            ) : (
+              <a
+                href={project.liveDemoUrl}
+                target="_blank"
+                rel="noreferrer"
+                className="flex-1 inline-flex items-center justify-center gap-2 h-[48px] sm:h-[50px] px-4 rounded-xl font-bold text-sm tracking-wide text-[#F6EFE2] bg-[#2B2621] hover:bg-[#3A332B] border border-[rgba(243,234,217,0.12)] dark:bg-[#00ED64] dark:text-[#001E2B] dark:hover:bg-[#00C853] dark:border-[#00ED64] dark:shadow-[0_4px_16px_rgba(0,237,100,0.25)] transition-all duration-250 shadow-sm"
+              >
+                <span className="flex items-center gap-1.5 font-['Roboto',sans-serif]">
+                  <span>Live Demo</span>
+                  <ExternalLink className="w-4 h-4 text-[#D6CBB7] dark:text-[#001E2B]" />
+                </span>
+              </a>
+            )}
 
             <a
               href={project.githubUrl}
